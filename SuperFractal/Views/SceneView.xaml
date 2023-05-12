@@ -6,21 +6,21 @@
              xmlns:local="clr-namespace:SuperFractal.Views"
              xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <ContentControl Grid.Column="0">
+        <ContentControl Grid.Column="0" Background="Black">
             <behaviours:Interaction.Triggers>
                 <behaviours:EventTrigger EventName="SizeChanged">
                     <behaviours:InvokeCommandAction Command="{Binding SceneSizeChanged}"
                                                     PassEventArgsToCommand="True"/>
                 </behaviours:EventTrigger>
             </behaviours:Interaction.Triggers>
-            <Image Source="{Binding Scene}">
+            <Image Source="{Binding Scene}"  Focusable="True">
                 <behaviours:Interaction.Triggers>
                     <behaviours:EventTrigger EventName="Mouse.MouseWheel">
                         <behaviours:InvokeCommandAction Command="{Binding SceneMouseWheel}"
