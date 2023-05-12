@@ -13,7 +13,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <ContentControl Grid.Column="0" Background="Black">
+        <Grid Grid.Column="0" Background="Black">
             <behaviours:Interaction.Triggers>
                 <behaviours:EventTrigger EventName="SizeChanged">
                     <behaviours:InvokeCommandAction Command="{Binding SceneSizeChanged}"
@@ -41,7 +41,7 @@
 
                 </behaviours:Interaction.Triggers>
             </Image>
-        </ContentControl>
+        </Grid>
         
     </Grid>
 </UserControl>
