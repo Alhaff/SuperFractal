@@ -13,4 +13,10 @@
     <PackageReference Include="WriteableBitmapEx" Version="1.6.8" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="AlgebraicFractals">
+      <HintPath>..\..\AlgebraicFractals\bin\Release\net7.0\AlgebraicFractals.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
