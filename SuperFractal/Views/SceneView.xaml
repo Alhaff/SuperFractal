@@ -13,28 +13,38 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" Background="Black">
+        <Grid Grid.Column="0" Background="White">
             <behaviours:Interaction.Triggers>
                 <behaviours:EventTrigger EventName="SizeChanged">
                     <behaviours:InvokeCommandAction Command="{Binding SceneSizeChanged}"
                                                     PassEventArgsToCommand="True"/>
                 </behaviours:EventTrigger>
+                <behaviours:EventTrigger EventName="Loaded">
+                    <behaviours:InvokeCommandAction Command="{Binding SceneLoaded}"
+                                                    PassEventArgsToCommand="True"/>
+                </behaviours:EventTrigger>
             </behaviours:Interaction.Triggers>
+            <Grid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="File"/>
+                    <MenuItem Header="Save" Command="{Binding SaveScene}"/>
+                </ContextMenu>
+            </Grid.ContextMenu>
             <Image Source="{Binding Scene}"  Focusable="True">
                 <behaviours:Interaction.Triggers>
-                    <behaviours:EventTrigger EventName="Mouse.MouseWheel">
+                    <behaviours:EventTrigger EventName="MouseWheel">
                         <behaviours:InvokeCommandAction Command="{Binding SceneMouseWheel}"
                                                     PassEventArgsToCommand="True"/>
                     </behaviours:EventTrigger>
-                    <behaviours:EventTrigger EventName="Mouse.PreviewMouseDown">
+                    <behaviours:EventTrigger EventName="PreviewMouseDown">
                         <behaviours:InvokeCommandAction Command="{Binding ScenePreviewMouseDown}"
                                                     PassEventArgsToCommand="True"/>
                     </behaviours:EventTrigger>
-                    <behaviours:EventTrigger EventName="Mouse.MouseDown">
+                    <behaviours:EventTrigger EventName="MouseDown">
                         <behaviours:InvokeCommandAction Command="{Binding SceneMouseDown}"
                                                     PassEventArgsToCommand="True"/>
                     </behaviours:EventTrigger>
-                    <behaviours:EventTrigger EventName="Mouse.MouseMove">
+                    <behaviours:EventTrigger EventName="MouseMove">
                         <behaviours:InvokeCommandAction Command="{Binding SceneMouseMove}"
                                                     PassEventArgsToCommand="True"/>
                     </behaviours:EventTrigger>
@@ -42,6 +52,41 @@
                 </behaviours:Interaction.Triggers>
             </Image>
         </Grid>
-        
+        <StackPanel Grid.Column="1" Margin="5 5">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Час відмальовки кадру:"/>
+                <TextBlock Margin="1 0 0 0" 
+                           Text="{Binding FrameDrawingTime, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" DataContext="{Binding MousePosInWorld}">
+                <TextBlock Text="Позиція:"/>
+                <TextBlock Text="{Binding X, StringFormat=X: {0:g}}"></TextBlock>
+                <TextBlock Text="{Binding Y, StringFormat=Y: {0:g}}"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Масштаб:"/>
+                <TextBlock Margin="1 0 0 0" 
+                           Text="{Binding Scale, StringFormat=:{0:f0}%,
+                                  UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Mаксимум ітерацій:"/>
+                <TextBox Margin="1 0 0 0" 
+                           Text="{Binding MaxIter,
+                                  UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            </StackPanel>
+            <ComboBox ItemsSource="{Binding DrawingMethods.Keys}">
+                <behaviours:Interaction.Triggers>
+                    <behaviours:EventTrigger EventName="SelectionChanged">
+                        <behaviours:InvokeCommandAction Command="{Binding DrawingMethodSelectionChanged}"
+                                                    PassEventArgsToCommand="True"/>
+                    </behaviours:EventTrigger>
+                    <behaviours:EventTrigger EventName="Loaded">
+                        <behaviours:InvokeCommandAction Command="{Binding ComboBoxLoaded}"
+                                                    PassEventArgsToCommand="True"/>
+                    </behaviours:EventTrigger>
+                </behaviours:Interaction.Triggers>
+            </ComboBox>
+        </StackPanel>
     </Grid>
 </UserControl>
