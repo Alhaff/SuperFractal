@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SuperFractal" xmlns:views="clr-namespace:SuperFractal.Views"
         mc:Ignorable="d"
+        WindowState="Maximized"
         Title="MainWindow" Height="450" Width="800">
     <Grid Margin="0" HorizontalAlignment="Stretch">
         <views:SceneView HorizontalAlignment="Stretch" DataContext="{Binding CurrentViewModel}"></views:SceneView>
