@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuperFractal.Stores;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,9 @@ namespace SuperFractal.ViewModels
     {
         public ViewModelBase CurrentViewModel { get; }
 
-        public MainViewModel()
+        public MainViewModel(FractalStore fractalStore)
         {
-            CurrentViewModel = new SceneViewModel();
+            CurrentViewModel = new SceneViewModel(fractalStore);
         }
     }
 }
