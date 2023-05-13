@@ -1,4 +1,6 @@
-﻿using SuperFractal.ViewModels;
+﻿using AlgebraicFractals.Fractals;
+using SuperFractal.Stores;
+using SuperFractal.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,13 +17,16 @@ namespace SuperFractal
     /// </summary>
     public partial class App : Application
     {
+        private FractalStore _FractalStore = new FractalStore();
         protected override void OnStartup(StartupEventArgs e)
         {
+            _FractalStore.Fractals.Add(new MandelbrotSet() { Center = new AlgebraicFractals.Coord<double>(1, 1), ThreadCount = 64 });
             MainWindow = new MainWindow()
             {
-                DataContext = new MainViewModel()
+                DataContext = new MainViewModel(_FractalStore)
             };
-            MainWindow.Show();  
+            MainWindow.Show();
+           
         }
     }
 }
