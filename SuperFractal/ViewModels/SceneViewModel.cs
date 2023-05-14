@@ -177,15 +177,13 @@ namespace SuperFractal.ViewModels
                 fractal.BottomRight = SceneToWorld(ImageBottomRight);
             }
             FractalStore.MultiFractalCreator(FractalStore.Fractals,
-                                             ImageBuffer,
-                                             SceneWidth,
-                                             ImageTopLeft,
-                                             ImageBottomRight,
-                                             FractalStore.MaxIterations);
+                                           ImageBuffer,
+                                           SceneWidth,
+                                           ImageTopLeft,
+                                           ImageBottomRight,
+                                           FractalStore.MaxIterations);
             Scene.WritePixels(new Int32Rect(0, 0, SceneWidth, SceneHeight), ImageBuffer, Scene.BackBufferStride, 0);
-            //Scene.Clear(Colors.Aqua);
             Scene.Unlock();
-            //OnPropertyChanged(nameof(Scene));
         }
         #endregion
 
@@ -256,6 +254,11 @@ namespace SuperFractal.ViewModels
                 var mousePos = e.GetPosition((IInputElement)e.Source);
                 worldStartPan = new Coord<double>(mousePos.X, mousePos.Y);
             }
+            if(e.RightButton == MouseButtonState.Pressed)
+            {
+                var mousePos = e.GetPosition((IInputElement)e.Source);
+                MousePosInWorld = SceneToWorld(new Coord<int>((int)mousePos.X, (int)mousePos.Y));
+            }
         }
         private void MouseDown(object parametr)
         {
@@ -269,6 +272,7 @@ namespace SuperFractal.ViewModels
                 worldStartPan = mouse;
                 MousePosInWorld = SceneToWorld(new Coord<int>((int)mouse.X, (int)mouse.Y));
             }
+            
         }
         private void MouseMove(object parametr)
         {
@@ -323,6 +327,18 @@ namespace SuperFractal.ViewModels
 
                 }
             }
+        }
+
+        private void LoadNewWindowToEditScene(object e)
+        {
+            NavigationStore navigation = new NavigationStore();
+            navigation.CurrentViewModel = new FractalCollectionViewModel(MousePosInWorld,FractalStore, navigation);
+            EditSceneWindow editScene = new EditSceneWindow()
+            {
+                DataContext = new EditSceneViewModel(navigation)
+            };
+            editScene.ShowDialog();
+            UpdateScene();
         }
 
         private RelayCommand sceneSizeChanged;
@@ -425,6 +441,16 @@ namespace SuperFractal.ViewModels
             {
                 return saveScene ??
                     (saveScene = new RelayCommand(SaveSceneToFile));
+            }
+        }
+
+        private RelayCommand editScene;
+        public RelayCommand EditScene
+        {
+            get
+            {
+                return editScene ??
+                    (editScene = new RelayCommand(LoadNewWindowToEditScene));
             }
         }
         #endregion
