@@ -26,8 +26,8 @@
             </behaviours:Interaction.Triggers>
             <Grid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="File"/>
-                    <MenuItem Header="Save" Command="{Binding SaveScene}"/>
+                    <MenuItem Header="Редагувати" Command="{Binding EditScene}" />
+                    <MenuItem Header="Зберегти" Command="{Binding SaveScene}"/>
                 </ContextMenu>
             </Grid.ContextMenu>
             <Image Source="{Binding Scene}"  Focusable="True">
