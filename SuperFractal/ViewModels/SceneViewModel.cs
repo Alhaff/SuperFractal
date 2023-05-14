@@ -245,7 +245,8 @@ namespace SuperFractal.ViewModels
                 worldScale = worldScale * 0.9;  
             }
             Scale = ((worldScale.Y / 720.0) * 100);
-            MaxIter = (int)(32*Math.Pow(Math.Log10(Scale), 1.2));
+            AutoIteration?.Invoke();
+           
             var mouseAfterZoom = SceneToWorld(new Coord<int>((int)mousePos.X, (int)mousePos.Y));
             worldOffset = worldOffset + (mouseBeforeZoom - mouseAfterZoom);
             MousePosInWorld = SceneToWorld(new Coord<int>((int)mousePos.X, (int)mousePos.Y));
@@ -458,6 +459,45 @@ namespace SuperFractal.ViewModels
             {
                 return editScene ??
                     (editScene = new RelayCommand(LoadNewWindowToEditScene));
+            }
+        }
+
+        private event Action AutoIteration;
+
+        private void AutoIncrementIter()
+        {
+            MaxIter = (int)(32 * Math.Pow(Math.Log10(Scale), 1.2));
+        }
+
+        private RelayCommand autoIterationChecked;
+        public RelayCommand AutoIterationChecked
+        {
+            get
+            {
+                return autoIterationChecked ??
+                    (autoIterationChecked
+                    = new RelayCommand(
+                        e=>
+                        {
+                            AutoIteration += AutoIncrementIter;
+                        }
+                        ));
+            }
+        }
+
+        private RelayCommand autoIterationUnchecked;
+        public RelayCommand AutoIterationUnchecked
+        {
+            get
+            {
+                return autoIterationUnchecked ??
+                    (autoIterationUnchecked
+                    = new RelayCommand(
+                        e =>
+                        {
+                            AutoIteration-= AutoIncrementIter;
+                        }
+                        ));
             }
         }
         #endregion

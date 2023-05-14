@@ -75,6 +75,18 @@
                            Text="{Binding MaxIter,
                                   UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </StackPanel>
+            <CheckBox Content="Автоматичне обчислення" IsChecked="False">
+                <behaviours:Interaction.Triggers>
+                    <behaviours:EventTrigger EventName="Checked">
+                        <behaviours:InvokeCommandAction Command="{Binding AutoIterationChecked}"
+                                                    PassEventArgsToCommand="True"/>
+                    </behaviours:EventTrigger>
+                    <behaviours:EventTrigger EventName="Unchecked">
+                        <behaviours:InvokeCommandAction Command="{Binding AutoIterationUnchecked}"
+                                                    PassEventArgsToCommand="True"/>
+                    </behaviours:EventTrigger>
+                </behaviours:Interaction.Triggers>
+            </CheckBox>
             <ComboBox ItemsSource="{Binding DrawingMethods.Keys}">
                 <behaviours:Interaction.Triggers>
                     <behaviours:EventTrigger EventName="SelectionChanged">
