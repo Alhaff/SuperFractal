@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SuperFractal.Views"
              xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:vms="clr-namespace:SuperFractal.ViewModels" 
+             xmlns:algebraicfractals="clr-namespace:AlgebraicFractals;assembly=AlgebraicFractals"
              mc:Ignorable="d" 
            
              d:DesignHeight="450" d:DesignWidth="800">
@@ -34,6 +36,7 @@
         <ListView
             Grid.Row="1"
             Margin="0 25 0 0"
+            x:Name="FractalList"
             ItemsSource="{Binding Fractals}" 
             SelectedItem="{Binding SelectedFractal}"
             MaxWidth="800">
@@ -45,20 +48,36 @@
             <ListView.View>
                 
                 <GridView>
-                    <GridViewColumn Header="Підпис"  Width="382" >
+                    <GridViewColumn Header="Підпис"  Width="252" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock MaxWidth="200" HorizontalAlignment="Center" Text="{Binding Caption}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Центр" Width="381" >
+                    <GridViewColumn Header="Центр" Width="200" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel MaxWidth="200" HorizontalAlignment="Center" Orientation="Horizontal" DataContext="{Binding Center}">
                                     <TextBlock HorizontalAlignment="Center" Text="{Binding X, StringFormat=X: {0:g6}}"/>
                                     <TextBlock HorizontalAlignment="Center" Margin="10 0 0 0" Text="{Binding Y, StringFormat=Y: {0:g6}}" />
                                 </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Кількість ітерацій у останній позиції миші" Width="300" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Text="">
+                                        <behaviours:Interaction.Triggers>
+                                            <behaviours:EventTrigger EventName="Loaded">
+                                                <behaviours:InvokeCommandAction 
+                                                    Command="{Binding DataContext.IterAmountLoaded,
+                                                    RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"
+                                                    PassEventArgsToCommand="True"/>
+                                                </behaviours:EventTrigger>
+                                            </behaviours:Interaction.Triggers>
+                                </TextBlock>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

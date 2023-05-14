@@ -8,6 +8,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace SuperFractal.ViewModels
 {
@@ -46,6 +49,11 @@ namespace SuperFractal.ViewModels
                 _fractalToAdd = value;
                 OnPropertyChanged(nameof(FractalSelectedToAdd));
             }
+        }
+
+        public string GetIterationsAmount(AlgebraicFractal fractal)
+        {
+            return fractal.FractalEquasion(LastMousePosInWorld.X, LastMousePosInWorld.Y, _fractalStore.MaxIterations).ToString();
         }
 
         public IEnumerable<AlgebraicFractal>  Fractals => _algebraicFractals;
@@ -87,6 +95,16 @@ namespace SuperFractal.ViewModels
             }
         }
 
+        private void SetIterAmount(object e)
+        {
+            var obj = e as RoutedEventArgs;
+            if (obj == null) return;
+            var textBlock = obj.Source as TextBlock;
+            var context  = textBlock.DataContext;
+            var fractal = context as AlgebraicFractal;
+            if (fractal == null) return;
+            textBlock.Text = GetIterationsAmount(fractal);
+        }
         private void EditFractal(object e)
         {
             var obj = SelectedFractal;
@@ -138,6 +156,16 @@ namespace SuperFractal.ViewModels
             {
                 return addFractal ??
                     (addFractal = new RelayCommand(AddItem));
+            }
+        }
+
+        private RelayCommand iterAmountLoaded;
+        public RelayCommand IterAmountLoaded
+        {
+            get
+            {
+                return iterAmountLoaded ??
+                    (iterAmountLoaded = new RelayCommand(SetIterAmount));
             }
         }
     }
