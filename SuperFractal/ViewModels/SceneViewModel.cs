@@ -176,13 +176,20 @@ namespace SuperFractal.ViewModels
                 fractal.TopLeft = SceneToWorld(ImageTopLeft);
                 fractal.BottomRight = SceneToWorld(ImageBottomRight);
             }
-            FractalStore.MultiFractalCreator(FractalStore.Fractals,
-                                           ImageBuffer,
-                                           SceneWidth,
-                                           ImageTopLeft,
-                                           ImageBottomRight,
-                                           FractalStore.MaxIterations);
-            Scene.WritePixels(new Int32Rect(0, 0, SceneWidth, SceneHeight), ImageBuffer, Scene.BackBufferStride, 0);
+            if (FractalStore.Fractals.Count > 0)
+            {
+                FractalStore.MultiFractalCreator(FractalStore.Fractals,
+                                               ImageBuffer,
+                                               SceneWidth,
+                                               ImageTopLeft,
+                                               ImageBottomRight,
+                                               FractalStore.MaxIterations);
+                Scene.WritePixels(new Int32Rect(0, 0, SceneWidth, SceneHeight), ImageBuffer, Scene.BackBufferStride, 0);
+            }
+            else
+            {
+                Scene.Clear(Colors.Black);
+            }
             Scene.Unlock();
         }
         #endregion
