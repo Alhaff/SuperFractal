@@ -5,8 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SuperFractal.Views"
              xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:custom="clr-namespace:SuperFractal.Controls"
              mc:Ignorable="d" 
              >
+    <UserControl.Resources>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*"/>
@@ -52,6 +56,7 @@
                 </behaviours:Interaction.Triggers>
             </Image>
         </Grid>
+        
         <StackPanel Grid.Column="1" Margin="5 5">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Час відмальовки кадру:"/>
@@ -71,9 +76,8 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Mаксимум ітерацій:"/>
-                <TextBox Margin="1 0 0 0" 
-                           Text="{Binding MaxIter,
-                                  UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <custom:SubmitTextBox Margin="1 0 0 0" 
+                           Text="{Binding MaxIter, UpdateSourceTrigger=PropertyChanged}"></custom:SubmitTextBox>
             </StackPanel>
             <CheckBox Content="Автоматичне обчислення" IsChecked="False">
                 <behaviours:Interaction.Triggers>

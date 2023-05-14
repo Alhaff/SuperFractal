@@ -1,13 +1,15 @@
-﻿<Window x:Class="SuperFractal.MainWindow"
+﻿<mah:MetroWindow x:Class="SuperFractal.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SuperFractal" xmlns:views="clr-namespace:SuperFractal.Views"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:SuperFractal"
+        xmlns:views="clr-namespace:SuperFractal.Views"
         mc:Ignorable="d"
         WindowState="Maximized"
-        Title="SuperFractal" Height="450" Width="800">
+        Title="Super Fractal" Height="450" Width="800">
     <Grid Margin="0" HorizontalAlignment="Stretch">
         <views:SceneView HorizontalAlignment="Stretch" DataContext="{Binding CurrentViewModel}"></views:SceneView>
     </Grid>
-</Window>
+</mah:MetroWindow>

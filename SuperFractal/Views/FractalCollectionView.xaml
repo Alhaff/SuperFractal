@@ -7,12 +7,22 @@
              xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:vms="clr-namespace:SuperFractal.ViewModels" 
              xmlns:algebraicfractals="clr-namespace:AlgebraicFractals;assembly=AlgebraicFractals"
+             xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
            
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="{StaticResource MahApps.Brushes.ThemeBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.ThemeForeground}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource MahApps.Brushes.ThemeBackground}"/>
+            <Setter Property="Padding" Value="20 0 20 0"/>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="2*" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
@@ -23,12 +33,16 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock
+            <TextBlock Style="{StaticResource HeaderTextStyle}"
                 Grid.Column="0"
                 Text="Фрактали на полотні" />
             <StackPanel Grid.Column="1" Orientation="Horizontal">
-                <Button Content="Видалити" Command="{Binding DeleteSelected}"></Button>
-                <Button Content="Редагувати" Command="{Binding EditSelected}"></Button>
+                <Button Style="{DynamicResource MahApps.Styles.Button.Circle}" MaxHeight="30" Command="{Binding DeleteSelected}">
+                    <Image Source="pack://application:,,,/Resources/Images/Delete.png"></Image>
+                </Button>
+                <Button Margin="10 0" Style="{DynamicResource MahApps.Styles.Button.Circle}" MaxHeight="30" Command="{Binding EditSelected}">
+                    <Image Source="pack://application:,,,/Resources/Images/Edit.png"></Image>
+                </Button>
             </StackPanel>
 
         </Grid>
@@ -39,33 +53,43 @@
             x:Name="FractalList"
             ItemsSource="{Binding Fractals}" 
             SelectedItem="{Binding SelectedFractal}"
+            HorizontalAlignment="Center"
             MaxWidth="800">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="true" >
+                            <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.ThemeForeground}" />
+                            <Setter Property="Background" Value="{StaticResource MahApps.Brushes.ThemeBackground}" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true" >
+                            <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.ThemeForeground}" />
+                            <Setter Property="Background" Value="{StaticResource MahApps.Brushes.ThemeBackground}" />
+                        </Trigger>
+                    </Style.Triggers>
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.View>
-                
                 <GridView>
-                    <GridViewColumn Header="Підпис"  Width="252" >
+                    <GridViewColumn Header="Підпис">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock MaxWidth="200" HorizontalAlignment="Center" Text="{Binding Caption}" />
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Caption}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Центр" Width="200" >
+                    <GridViewColumn Header="Центр" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <StackPanel MaxWidth="200" HorizontalAlignment="Center" Orientation="Horizontal" DataContext="{Binding Center}">
-                                    <TextBlock HorizontalAlignment="Center" Text="{Binding X, StringFormat=X: {0:g6}}"/>
-                                    <TextBlock HorizontalAlignment="Center" Margin="10 0 0 0" Text="{Binding Y, StringFormat=Y: {0:g6}}" />
+                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" DataContext="{Binding Center}">
+                                    <TextBlock HorizontalAlignment="Center" Text="{Binding X, StringFormat=R: {0:g6}}"/>
+                                    <TextBlock HorizontalAlignment="Center" Margin="10 0 0 0" Text="{Binding Y, StringFormat=Im: {0:g6}}" />
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Кількість ітерацій у останній позиції миші" Width="300" >
+                    <GridViewColumn Header="Кількість ітерацій у останній позиції миші" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock HorizontalAlignment="Center" Text="">
@@ -87,7 +111,9 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
             <ComboBox ItemsSource="{Binding ExistingFractals}" SelectedItem="{Binding FractalSelectedToAdd}" SelectedIndex="0">
             </ComboBox>
-            <Button Margin="10 0 0 0" Content="Додати" Command="{Binding AddFractal}"></Button>
+            <Button Style="{DynamicResource MahApps.Styles.Button.Circle}" Margin="20 0" Command="{Binding AddFractal}">
+                <Image Source="pack://application:,,,/Resources/Images/Add.png"></Image>
+            </Button>
         </StackPanel>
     </Grid>
    

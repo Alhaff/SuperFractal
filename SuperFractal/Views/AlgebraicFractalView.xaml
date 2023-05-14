@@ -23,8 +23,16 @@
                 <TextBlock>)</TextBlock>
             </StackPanel>
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" >
-                <Button Margin="10 0" Content="Додати" Command="{Binding AddFractal}"></Button>
-                <Button  Margin="10 0" Content="Назад" Command="{Binding BackPressed}"></Button>
+                <Button Margin="10 0" Command="{Binding AddFractal}">
+                    <TextBlock Style="{StaticResource CommonTextStyle}">
+                        Підтвердити
+                    </TextBlock>
+                </Button>
+                <Button  Margin="10 0" Command="{Binding BackPressed}">
+                    <TextBlock Style="{StaticResource CommonTextStyle}">
+                        Назад
+                    </TextBlock>
+                </Button>
             </StackPanel>
         </StackPanel>
     </Grid>
