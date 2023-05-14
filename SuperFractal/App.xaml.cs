@@ -20,7 +20,7 @@ namespace SuperFractal
         private FractalStore _FractalStore = new FractalStore();
         protected override void OnStartup(StartupEventArgs e)
         {
-            _FractalStore.Fractals.Add(new MandelbrotSet() { Center = new AlgebraicFractals.Coord<double>(1, 1), ThreadCount = 64 });
+            _FractalStore.Fractals.Add(new MandelbrotSet() { ThreadCount = 64 });
             MainWindow = new MainWindow()
             {
                 DataContext = new MainViewModel(_FractalStore)
