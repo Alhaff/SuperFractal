@@ -9,7 +9,7 @@
         xmlns:views="clr-namespace:SuperFractal.Views"
         ResizeMode="NoResize"
         mc:Ignorable="d"
-        Title="EditSceneWindow" Height="450" Width="800">
+        Title="Edit Scene Window" Height="450" Width="800">
     <Grid Margin="10">
         <Grid.Resources>
             <DataTemplate DataType="{x:Type vms:FractalCollectionViewModel}">
@@ -26,6 +26,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vms:AddNewtonViewModel}">
                 <views:AddNewtonView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:SaveImageViewModel}">
+                <views:SaveImageView />
             </DataTemplate>
         </Grid.Resources>
 
