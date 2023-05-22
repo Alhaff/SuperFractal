@@ -129,6 +129,7 @@ namespace SuperFractal.ViewModels
                 _navigationStore.CurrentViewModel = new AddNewtonViewModel(LastMousePosInWorld,
                     _fractalStore, _navigationStore, obj as Newton);
             }
+            _fractalStore.Fractals.Count();
         }
         private RelayCommand deleteSelected;
         public RelayCommand DeleteSelected

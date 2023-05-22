@@ -302,39 +302,16 @@ namespace SuperFractal.ViewModels
 
         private void SaveSceneToFile(object e)
         {
-            SaveFileDialog saveImageDialog = new SaveFileDialog();
-            saveImageDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);      
-            saveImageDialog.Title = "Save an image file";
-            saveImageDialog.CheckFileExists = false;
-            saveImageDialog.CheckPathExists = true;
-            saveImageDialog.DefaultExt = "jpg";
-            saveImageDialog.Filter = "JPeg Image|*.jpg|Png Image|*.png";
-            saveImageDialog.FilterIndex = 2;
-            saveImageDialog.RestoreDirectory = true;
-            saveImageDialog.OverwritePrompt = true;
-            saveImageDialog.CreatePrompt = false;
-            if (saveImageDialog.ShowDialog()?? false)
+            NavigationStore navigation = new NavigationStore();
+            navigation.CurrentViewModel = new SaveImageViewModel(this, FractalStore, navigation);
+            EditSceneWindow editScene = new EditSceneWindow()
             {
-                if (saveImageDialog.FileName == "") return;
-                using (var fs = (System.IO.FileStream)saveImageDialog.OpenFile())
-                {
-                    switch (saveImageDialog.FilterIndex)
-                    {
-                        case 1:
-                            JpegBitmapEncoder encoder1 = new JpegBitmapEncoder();
-                            encoder1.Frames.Add(BitmapFrame.Create(Scene));
-                            encoder1.Save(fs);
-                            break;
-
-                        case 2:
-                            PngBitmapEncoder encoder2 = new PngBitmapEncoder();
-                            encoder2.Frames.Add(BitmapFrame.Create(Scene));
-                            encoder2.Save(fs);
-                            break;
-                    }
-
-                }
-            }
+                DataContext = new EditSceneViewModel(navigation)
+            };
+            editScene.Width = 400;
+            editScene.Height = 200;
+            editScene.Title = "Save Scene";
+            editScene.ShowDialog();
         }
 
         private void LoadNewWindowToEditScene(object e)
