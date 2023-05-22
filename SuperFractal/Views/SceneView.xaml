@@ -65,11 +65,11 @@
             </StackPanel>
             <StackPanel Orientation="Vertical" DataContext="{Binding MousePosInWorld}">
                 <TextBlock Text="Позиція:"/>
-                <TextBlock Text="{Binding X, StringFormat=X: {0:g}}"></TextBlock>
-                <TextBlock Text="{Binding Y, StringFormat=Y: {0:g}}"></TextBlock>
+                <TextBlock Text="{Binding X, StringFormat=R: {0:g}}"></TextBlock>
+                <TextBlock Text="{Binding Y, StringFormat=Im: {0:g}}"></TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Масштаб:"/>
+                <TextBlock Text="Zoom:"/>
                 <TextBlock Margin="1 0 0 0" 
                            Text="{Binding Scale, StringFormat=:{0:f0}%,
                                   UpdateSourceTrigger=PropertyChanged}"></TextBlock>
