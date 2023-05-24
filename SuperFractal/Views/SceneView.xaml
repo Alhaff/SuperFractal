@@ -70,8 +70,8 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Zoom:"/>
-                <TextBlock Margin="1 0 0 0" 
-                           Text="{Binding Scale, StringFormat=:{0:f0}%,
+                <TextBlock Margin="3 0 0 0" 
+                           Text="{Binding Scale, StringFormat={}{0:#\,#}%,
                                   UpdateSourceTrigger=PropertyChanged}"></TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
